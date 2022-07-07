@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="collapse navbar-collapse">
+
+        <ul class="navbar-nav">
+            <li class="navbar-item active"><a class="nav-link" href="index.jsp">Online Restaurant</a></li>
+        </ul>
+        <c:choose>
+            <c:when test="${user == null}">
+                <ul class="navbar-nav">
+                    <li class="nav-item active" ><a class="nav-link" href="login.jsp"><fmt:message key="login.message"/></a></li>
+                    <li class="nav-item active" ><a class="nav-link" href="register.jsp"><fmt:message key="register.message"/></a></li>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><a class="nav-link" href="controller?command=menu"><fmt:message key="menu.message"/></a></li>
+                    <li class="nav-item active"><a class="nav-link" href="controller?command=orders"><fmt:message key="orders.message"/></a></li>
+                    <c:if test ="${user.role == 'MANAGER'}">
+                        <li class="nav-item active"><a class="nav-link" href="controller?command=addDish"><fmt:message key="addDish.message"/></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="controller?command=users"><fmt:message key="users.message"/></a></li>
+                    </c:if>
+                    <li class="nav-item active" ><a class="nav-link" class="active" href="controller?command=editProfile">${user.name}</a></li>
+                    <li class="nav-item active" style="float:right"><a class="nav-link" href="controller?command=myOrder"><fmt:message key="cart.message"/></a></li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="navbar-btn"><a class="nav-link" href="controller?command=logout"><fmt:message key="logOut.message"/></a></li>
+                </ul>
+
+            </c:otherwise>
+        </c:choose>
+    </div>
+</nav>

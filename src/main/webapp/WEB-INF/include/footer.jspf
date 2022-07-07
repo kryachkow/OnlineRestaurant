@@ -1,0 +1,16 @@
+<footer class="mt-auto">
+
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <form action="controller" method="get" class="col-auto">
+                <input type="hidden" name="command" value="changeLocale">
+                <input type="hidden" name="locale" value="uk">
+                <button class="btn-secondary" type="submit"><fmt:message key="footer_uk_locale.message"/></button>
+            </form>
+            <form action="controller" method="get" class="col-auto">
+                <input type="hidden" name="command" value="changeLocale">
+                <input type="hidden" name="locale" value="en">
+                <button class="btn-secondary" type="submit"><fmt:message key="footer_en_locale.message"/></button>
+            </form>
+
+    </section>
+</footer>
