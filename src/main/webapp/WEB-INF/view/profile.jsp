@@ -40,7 +40,7 @@
             <form  action="controller" method="post" >
                 <input type="hidden" name="command" value="editProfile">
                 <input type="hidden" name="userId" value="${user.id}">
-                <div class="container">
+                <div class="container flex-column">
                     <div class="form-group">
                         <label for="name"><fmt:message key="name.message"/> </label>
                         <input type="text" placeholder="<fmt:message key="enterName.message"/> " name="name" id="name" required value="<c:out value="${user.name}" default=""/>" >
@@ -76,8 +76,8 @@
                 <input type="hidden" value="${currentLocale}" id="currentLocale" name="currentLocale">
                 <input type="hidden" name="command" value="editProfile">
                 <input type="hidden" name="userId" value="${user.id}">
-                <div class="container">
-                    <div class="form-group ">
+                <div class="container flex-column">
+                    <div class="form-group">
                         <label for="password"><fmt:message key="oldPassword.message"/></label>
                         <input type="password" placeholder="<fmt:message key="oldPassword.message"/>" name="password" id="password" required minlength="5" maxlength="24">
                     </div>
@@ -96,7 +96,6 @@
                         <button type="submit" class="btn btn-primary"><fmt:message key="changePassword.message"/></button>
                     </div>
                 </div>
-
             </form>
 
         </div>

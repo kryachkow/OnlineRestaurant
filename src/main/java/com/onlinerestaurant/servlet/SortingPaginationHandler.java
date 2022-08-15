@@ -9,15 +9,13 @@ import java.util.Map;
 /**
  * Helper for sorting and pagination.
  */
-public class SortingPaginationHelper {
+public class SortingPaginationHandler {
 
     int pageSize;
     String tableName;
     String listName;
-    Map<String, String> sortMap;
-    int pageNumber;
 
-    public SortingPaginationHelper(int pageSize, String tableName, String listName){
+    public SortingPaginationHandler(int pageSize, String tableName, String listName){
         this.pageSize = pageSize;
         this.tableName = tableName;
         this.listName = listName;
@@ -34,16 +32,16 @@ public class SortingPaginationHelper {
         if (!parameterMap.isEmpty()) {
             parameterMap.forEach((key, value) -> sortMap.put(key, value[0]));
         }
-        this.sortMap = sortMap;
         return sortMap;
     }
 
     /**
      * @return pageMap based on sortMap and builderParameters
      */
-    public Map<String, Integer> getPageMap(){
+    public Map<String, Integer> getPageMap(HttpServletRequest request){
         Map<String, Integer> pageMap = new HashMap<>();
-        pageNumber = 1;
+        int pageNumber = 1;
+        Map<String, String> sortMap = (Map<String, String>) request.getSession().getAttribute("sortMap");
         if(sortMap.containsKey( tableName + "PageNumber")) {
             pageNumber = Integer.parseInt(sortMap.get( tableName + "PageNumber"));
         }
@@ -58,6 +56,8 @@ public class SortingPaginationHelper {
      * @return false if list is empty and pageNumber != 1, true otherwise.
      */
     public boolean handlePages(List<?> list, HttpServletRequest request) {
+        Map<String, String> sortMap = (Map<String, String>) request.getSession().getAttribute("sortMap");
+        int pageNumber = Integer.parseInt(sortMap.getOrDefault( tableName + "PageNumber", "1"));
         if(list.isEmpty() && pageNumber != 1){
             return false;
         }

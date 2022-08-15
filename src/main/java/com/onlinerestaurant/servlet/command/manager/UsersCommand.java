@@ -5,7 +5,7 @@ import com.onlinerestaurant.db.service.UserService;
 import com.onlinerestaurant.servlet.command.Command;
 import com.onlinerestaurant.servlet.ConstantFields;
 import com.onlinerestaurant.servlet.Paths;
-import com.onlinerestaurant.servlet.SortingPaginationHelper;
+import com.onlinerestaurant.servlet.SortingPaginationHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
@@ -26,7 +26,7 @@ public class UsersCommand implements Command {
     public static final String BAN_ACTION = "ban";
     public static final String ID = "id";
     public static final int PAGE_SIZE = 3;
-    private static final SortingPaginationHelper USERS_SORTING_PAGINATION_HELPER = new SortingPaginationHelper(PAGE_SIZE, "users", "users");
+    private static final SortingPaginationHandler USERS_SORTING_PAGINATION_HANDLER = new SortingPaginationHandler(PAGE_SIZE, "users", "users");
     private static final Logger LOGGER = LogManager.getLogger(UsersCommand.class.getName());
 
     @Override
@@ -37,9 +37,9 @@ public class UsersCommand implements Command {
                     Integer.parseInt(request.getParameter(ID)));
             return Paths.USERS_COMMAND_PATH;
         }
-        Map<String,String> sortMap = USERS_SORTING_PAGINATION_HELPER.getSortMap(request);
-        Map<String, Integer> pageMap = USERS_SORTING_PAGINATION_HELPER.getPageMap();
+        Map<String,String> sortMap = USERS_SORTING_PAGINATION_HANDLER.getSortMap(request);
+        Map<String, Integer> pageMap = USERS_SORTING_PAGINATION_HANDLER.getPageMap(request);
         List<User> list = UserService.getUsers(sortMap, pageMap.get(ConstantFields.OFFSET),pageMap.get(ConstantFields.LIMIT));
-        return USERS_SORTING_PAGINATION_HELPER.handlePages(list, request) ? Paths.USERS_JSP : Paths.USERS_COMMAND_PATH + "&usersPageNumber=1";
+        return USERS_SORTING_PAGINATION_HANDLER.handlePages(list, request) ? Paths.USERS_JSP : Paths.USERS_COMMAND_PATH + "&usersPageNumber=1";
     }
 }
