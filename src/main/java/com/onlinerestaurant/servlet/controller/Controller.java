@@ -31,7 +31,7 @@ public class Controller extends HttpServlet {
             address = command.execute(req, resp);
         } catch (Exception e) {
             LOGGER.error("Cannot execute a command", e);
-            req.setAttribute("errorMessage", e.getMessage());
+            req.getSession().setAttribute("errorMessage", e.getMessage());
         }
         req.getRequestDispatcher(address).forward(req, resp);
     }
