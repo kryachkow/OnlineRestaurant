@@ -12,4 +12,6 @@ public interface OrderDAO {
     List<Order> selectOrders(String statusChose, String nameSearch, int userId, int offset, int limit) throws DAOException;
     List<Order.CartContent> selectCartContent(int orderId) throws DAOException;
     void updateOrderStatus(int changeStatusId, int orderId) throws DAOException;
+
+    int selectTotalSpent(int userID) throws DAOException;
 }

@@ -1,6 +1,8 @@
 package com.onlinerestaurant.servlet.command.manager;
 
+import com.onlinerestaurant.db.DAOException;
 import com.onlinerestaurant.db.entity.User;
+import com.onlinerestaurant.db.service.OrderService;
 import com.onlinerestaurant.db.service.UserService;
 import com.onlinerestaurant.servlet.command.Command;
 import com.onlinerestaurant.servlet.ConstantFields;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +43,11 @@ public class UsersCommand implements Command {
         Map<String,String> sortMap = USERS_SORTING_PAGINATION_HANDLER.getSortMap(request);
         Map<String, Integer> pageMap = USERS_SORTING_PAGINATION_HANDLER.getPageMap(request);
         List<User> list = UserService.getUsers(sortMap, pageMap.get(ConstantFields.OFFSET),pageMap.get(ConstantFields.LIMIT));
+        Map<Integer, Integer> spentMap = new HashMap<>();
+        for( User u: list){
+            spentMap.put(u.getId(), OrderService.countTotalSpent(u.getId()));
+        }
+        request.getSession().setAttribute("spentMap", spentMap);
         return USERS_SORTING_PAGINATION_HANDLER.handlePages(list, request) ? Paths.USERS_JSP : Paths.USERS_COMMAND_PATH + "&usersPageNumber=1";
     }
 }

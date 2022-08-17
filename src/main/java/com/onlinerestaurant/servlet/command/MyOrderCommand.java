@@ -26,7 +26,7 @@ public class MyOrderCommand implements Command {
         HashMap<String, Order.CartContent> cart = (HashMap<String, Order.CartContent>) request.getSession().getAttribute(ConstantFields.CART_ATTRIBUTE);
         AtomicInteger totalPrice = new AtomicInteger();
         cart.values().forEach(cartContent -> totalPrice.addAndGet(cartContent.getPrice()));
-        request.setAttribute(TOTAL_PRICE,totalPrice );
+        request.setAttribute(TOTAL_PRICE, totalPrice);
         return Paths.MY_ORDER_JSP;
     }
 }

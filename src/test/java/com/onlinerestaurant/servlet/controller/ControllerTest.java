@@ -35,9 +35,7 @@ class ControllerTest {
         final HttpServletResponse response = mock(HttpServletResponse.class);
         final RequestDispatcher dispatcher = mock(RequestDispatcher.class);
         final Command command = mock(Command.class);
-
-
-
+        final HttpSession session = mock(HttpSession.class);
 
         when(request.getParameter("command")).thenReturn("testCommand");
         containerMockedStatic.when(() ->CommandContainer.getCommand("testCommand")).thenReturn(command);
@@ -51,6 +49,7 @@ class ControllerTest {
         when(request.getParameter("command")).thenReturn("testCommand");
         containerMockedStatic.when(() ->CommandContainer.getCommand("testCommand")).thenReturn(command);
         when(command.execute(request,response)).thenThrow(new Exception("exceptionCheck"));
+        when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher("error.jsp")).thenReturn(dispatcher);
 
         controller.doGet(request, response);

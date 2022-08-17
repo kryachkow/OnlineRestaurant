@@ -16,6 +16,8 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String GET_CART_CONTENT_BY_ORDER_ID = "SELECT * FROM cart_content WHERE order_id = ?";
     private static final String GET_ORDERS_BY_STATUS_ID = "SELECT * FROM `order` LEFT JOIN order_status ON status_id = order_status.id LEFT JOIN user ON user_id = user.id ";
     private static final String UPDATE_ORDER_STATUS_ID = "UPDATE `order` SET status_id = ? WHERE id = ?";
+
+    private static final String SELECT_TOTAL_SPENT = "SELECT SUM(total_price) FROM `order` WHERE user_id = ? AND status_id = 4";
     private static final String ID = "id";
     private static final String USER_ID ="user_id";
 
@@ -150,6 +152,25 @@ public class OrderDAOImpl implements OrderDAO {
             throw new DAOException("Cannot update order status", e);
         }
     }
+
+    @Override
+    public int selectTotalSpent(int userID) throws DAOException {
+        LOGGER.info("Run selectTotalSpent");
+        int result = 0;
+        try(Connection con = DBUtils.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(SELECT_TOTAL_SPENT)) {
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e){
+            LOGGER.error("Cannot count total spent");
+            throw new DAOException("Cannot count total spent", e);
+        }
+        return result;
+    }
+
 
     private  Order mapOrder(ResultSet rs)throws SQLException{
         LOGGER.info("Mapping Order");

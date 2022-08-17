@@ -33,9 +33,7 @@ public class OrdersCommand implements Command {
             ORDERS_SORTING_PAGINATION_HANDLER.handlePages(OrderService.getOrdersByUserId(user.getId(), pageMap.get(ConstantFields.OFFSET), pageMap.get(ConstantFields.LIMIT)), request);
             return Paths.ORDERS_JSP;
         }
-
         return ORDERS_SORTING_PAGINATION_HANDLER.handlePages(OrderService.getOrders(sortMap, pageMap.get(ConstantFields.OFFSET), pageMap.get(ConstantFields.LIMIT)), request) ? Paths.ORDERS_JSP : Paths.ORDERS_COMMAND_PATH + "&orderPageNumber=1";
-
     }
 
 

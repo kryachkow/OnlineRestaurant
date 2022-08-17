@@ -36,7 +36,7 @@ public class MakeOrderCommand implements Command{
         }
         int totalPrice = Integer.parseInt(request.getParameter(TOTAL_PRICE));
         try{
-            OrderService.addOrder(user.getId(),deliveryAddress, totalPrice, cart);
+            OrderService.addOrder(user.getId(), deliveryAddress, totalPrice, cart);
         } catch (DAOException e) {
             request.getSession().setAttribute(ConstantFields.ERROR_MESSAGE_ATTRIBUTE, "cannotAddOrderError.message");
             return Paths.MY_ORDER_COMMAND_PATH;

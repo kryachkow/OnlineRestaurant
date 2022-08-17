@@ -11,6 +11,9 @@ public class User implements Serializable {
     private String address;
     private Role role;
 
+
+
+
     private boolean banned;
 
     public int getId() {
@@ -67,6 +70,7 @@ public class User implements Serializable {
     }
 
     public void setBanned(boolean isBanned) {this.banned = isBanned;}
+
 
     @Override
     public String toString() {

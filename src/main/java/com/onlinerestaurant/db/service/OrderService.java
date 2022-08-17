@@ -35,4 +35,9 @@ public class OrderService {
         LOGGER.info("Run updateOrderStatus method");
         ORDER_DAO.updateOrderStatus(changeStatusId, orderId);
     }
+
+    public static int countTotalSpent(int id) throws DAOException{
+        LOGGER.info("Run countTotalSpent method");
+        return ORDER_DAO.selectTotalSpent(id);
+    }
 }

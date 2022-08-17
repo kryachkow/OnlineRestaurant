@@ -28,6 +28,7 @@
         <tr>
             <th><fmt:message key="userName.message"/></th>
             <th><fmt:message key="userEmail.message"/></th>
+            <th>Total Spent</th>
             <th><fmt:message key="updateBanStatus.message"/></th>
         </tr>
         <body>
@@ -35,6 +36,7 @@
                 <tr>
                     <td>${user.name}</td>
                     <td>${user.email}</td>
+                    <td>${spentMap.get(user.id)}</td>
                     <td>
                         <c:choose>
                         <c:when test="${user.banned}">

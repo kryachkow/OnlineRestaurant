@@ -40,7 +40,7 @@ class UserServiceTest {
         HashMap<String, String> registerMap = new HashMap<>();
         registerMap.put("email", "email");
         registerMap.put("name", "asdasdasd");
-        registerMap.put("password", "pass");
+        registerMap.put("newPassword", "pass");
         registerMap.put("phone", "phone");
         registerMap.put("address", "address");
 

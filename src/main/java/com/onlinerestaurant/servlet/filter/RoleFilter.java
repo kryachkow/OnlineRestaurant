@@ -18,7 +18,7 @@ import java.util.List;
 @WebFilter("/*")
 public class RoleFilter implements Filter {
 
-    private static final List<String> MANAGER_COMMANDS = Arrays.asList("addDish","deleteDish","users","updateOrderStatus", "editDish");
+    private static final List<String> MANAGER_COMMANDS = Arrays.asList("addDish", "deleteDish", "users", "updateOrderStatus", "editDish", "addCategory", "deleteCategory");
     private static final String USER_ATTRIBUTE = "user";
     private static final String COMMAND_PARAMETER = "command";
 
